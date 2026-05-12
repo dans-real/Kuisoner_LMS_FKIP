@@ -1,389 +1,197 @@
-
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuesioner UEQ — LMS FKIP UTM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .poster-wrap {
-    font-family: 'Space Grotesk', sans-serif;
-    background: #0a0a0f;
-    border-radius: 20px;
-    overflow: hidden;
-    padding: 0;
-    position: relative;
-    max-width: 540px;
-    margin: 0 auto;
+  :root {
+    --ink:    #111118;
+    --muted:  #888899;
+    --border: #ebebef;
+    --bg:     #f8f8fc;
+    --white:  #ffffff;
+    --lime:   #c8f135;
   }
 
-  .noise-overlay {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
-  }
-
-  .poster-inner {
-    position: relative;
-    z-index: 1;
-    padding: 36px 32px 28px;
-  }
-
-  .tag-row {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100dvh;
     display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .tag {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 99px;
-    border: 1px solid;
-  }
-
-  .tag-purple {
-    background: #2d1f5e;
-    color: #b69fff;
-    border-color: #5a3fc0;
-  }
-
-  .tag-green {
-    background: #0f2e1a;
-    color: #5df0a0;
-    border-color: #1a6b3a;
-  }
-
-  .tag-orange {
-    background: #2e1a08;
-    color: #ffaa55;
-    border-color: #7a4010;
-  }
-
-  .headline {
-    font-family: 'Syne', sans-serif;
-    font-size: 44px;
-    font-weight: 800;
-    line-height: 1.0;
-    margin: 0 0 6px;
-    color: #ffffff;
-    letter-spacing: -0.02em;
-  }
-
-  .headline span.grad {
-    background: linear-gradient(90deg, #a78bfa, #60e0c0, #facc15);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .subhead {
-    font-size: 15px;
-    color: #a0a0b8;
-    margin: 12px 0 28px;
-    line-height: 1.6;
-    max-width: 420px;
-  }
-
-  .subhead strong {
-    color: #e0e0f0;
-    font-weight: 500;
-  }
-
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, #5a3fc0 0%, #60e0c0 50%, transparent 100%);
-    margin: 0 0 24px;
-    opacity: 0.5;
-  }
-
-  .info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .info-card {
-    background: #13131e;
-    border: 1px solid #2a2a40;
-    border-radius: 12px;
-    padding: 14px 16px;
-  }
-
-  .info-label {
-    font-size: 11px;
-    color: #5a5a7a;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .info-value {
-    font-size: 15px;
-    color: #e0e0f0;
-    font-weight: 500;
-  }
-
-  .info-value .accent {
-    color: #a78bfa;
-  }
-
-  .cta-section {
-    background: linear-gradient(135deg, #1a103a 0%, #0f2020 100%);
-    border: 1px solid #3a2a6e;
-    border-radius: 16px;
-    padding: 20px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .qr-placeholder {
-    width: 64px;
-    height: 64px;
-    border-radius: 10px;
-    background: #ffffff;
+  main {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 40px 24px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: clamp(32px, 6vw, 52px) clamp(28px, 6vw, 52px);
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .dot-live {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(34,197,94,.2);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
+    50%      { box-shadow: 0 0 0 6px rgba(34,197,94,.08); }
+  }
+  .meta-text {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  h1 {
+    font-size: clamp(26px, 6vw, 34px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 14px;
+  }
+
+  p.desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  p.desc strong { color: var(--ink); font-weight: 600; }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .chip {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 5px 14px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ink);
+    color: var(--lime);
+    text-decoration: none;
+    border-radius: 14px;
+    padding: 18px 22px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    transition: opacity .15s, transform .15s;
+    margin-bottom: 12px;
+  }
+  .btn:hover { opacity: .88; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); opacity: 1; }
+  .btn .arrow {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
     flex-shrink: 0;
   }
 
-  .qr-placeholder svg {
-    width: 52px;
-    height: 52px;
-  }
-
-  .cta-text {
-    flex: 1;
-    min-width: 160px;
-  }
-
-  .cta-text p {
-    margin: 0;
-    color: #a0a0b8;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .cta-text p strong {
-    color: #e0e0f0;
-  }
-
-  .link-pill {
-    display: inline-block;
-    margin-top: 8px;
-    background: #5a3fc0;
-    color: #ffffff;
+  .note {
     font-size: 12px;
-    font-weight: 500;
-    padding: 6px 14px;
-    border-radius: 99px;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
   }
+  .note a { color: var(--muted); text-decoration: underline; }
 
-  .link-pill:hover {
-    background: #7056d6;
-  }
-
-  .reasons-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .reason-chip {
-    background: #13131e;
-    border: 1px solid #2a2a40;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 13px;
-    color: #c0c0d8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .reason-chip i {
-    color: #a78bfa;
-    font-size: 15px;
-  }
-
-  .footer-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .researcher-info {
+  footer {
+    padding: 20px 24px;
+    text-align: center;
     font-size: 12px;
-    color: #5a5a7a;
-    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
   }
-
-  .researcher-info span {
-    color: #7a7a9a;
-    display: block;
-  }
-
-  .badge-utm {
-    background: #1a1a2e;
-    border: 1px solid #2a2a40;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 12px;
-    color: #7a7a9a;
-    font-weight: 500;
-  }
-
-  .big-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 72px;
-    font-weight: 800;
-    line-height: 1;
-    color: #1e1e2e;
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    letter-spacing: -0.04em;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .dimensions-row {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-
-  .dim-badge {
-    font-size: 11px;
-    color: #60e0c0;
-    background: #0a2520;
-    border: 1px solid #1a5a4a;
-    border-radius: 6px;
-    padding: 4px 10px;
-    font-weight: 500;
-  }
-
 </style>
+</head>
+<body>
 
-<div class="poster-wrap">
-  <div class="noise-overlay"></div>
-  <div class="big-number">UEQ</div>
+<main>
+  <div class="card">
 
-  <div class="poster-inner">
-
-    <div class="tag-row">
-      <span class="tag tag-purple">📋 Penelitian</span>
-      <span class="tag tag-green">✅ Anonim</span>
-      <span class="tag tag-orange">⏱ 10–15 menit</span>
+    <div class="meta">
+      <div class="dot-live"></div>
+      <span class="meta-text">Sedang membuka responden · FKIP UTM</span>
     </div>
 
-    <div class="headline">
-      Punya opini<br>soal <span class="grad">LMS FKIP</span>?
-    </div>
+    <h1>Gimana pengalamanmu pakai LMS FKIP?</h1>
 
-    <p class="subhead">
-      Kami butuh <strong>pendapat jujur kamu</strong> tentang pengalaman pakai LMS. 
-      Jawaban kamu bantu kami riset beneran — bukan basa-basi.
+    <p class="desc">
+      Kami perlu <strong>pendapat jujur kamu</strong> untuk penelitian evaluasi UX.
+      Cuma 10 menit, dan jawaban kamu beneran dipake buat skripsi kami.
     </p>
 
-    <div class="divider"></div>
-
-    <div class="dimensions-row">
-      <span class="dim-badge">Daya Tarik</span>
-      <span class="dim-badge">Kejelasan</span>
-      <span class="dim-badge">Efisiensi</span>
-      <span class="dim-badge">Ketepatan</span>
-      <span class="dim-badge">Stimulasi</span>
-      <span class="dim-badge">Kebaruan</span>
+    <div class="chips">
+      <span class="chip">⏱ ~10 menit</span>
+      <span class="chip">🔒 Anonim</span>
+      <span class="chip">📱 Dari HP bisa</span>
+      <span class="chip">26 pertanyaan</span>
     </div>
 
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="info-label">Target responden</div>
-        <div class="info-value">Mahasiswa <span class="accent">FKIP UTM</span></div>
-      </div>
-      <div class="info-card">
-        <div class="info-label">Format</div>
-        <div class="info-value">Google Form <span class="accent">Online</span></div>
-      </div>
-      <div class="info-card">
-        <div class="info-label">Metode</div>
-        <div class="info-value"><span class="accent">UEQ</span> Terstandarisasi</div>
-      </div>
-      <div class="info-card">
-        <div class="info-label">Durasi</div>
-        <div class="info-value"><span class="accent">±10</span> menit</div>
-      </div>
-    </div>
+    <hr>
 
-    <div class="reasons-row">
-      <div class="reason-chip">
-        <i class="ti ti-shield-lock" aria-hidden="true"></i>
-        Data dijaga kerahasiaannya
-      </div>
-      <div class="reason-chip">
-        <i class="ti ti-star" aria-hidden="true"></i>
-        Kontribusi nyata
-      </div>
-      <div class="reason-chip">
-        <i class="ti ti-click" aria-hidden="true"></i>
-        Cukup sekali klik
-      </div>
-    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScQa-I9V1ZY38_GHNR9JSYxAOpSo_ZYwqjzIl2tCbOwX8ZBEA/viewform" target="_blank" class="btn">
+      <span>Isi kuesioner sekarang</span>
+      <span class="arrow">→</span>
+    </a>
 
-    <div class="cta-section">
-      <div class="qr-placeholder">
-        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="20" height="20" rx="2" fill="#000" />
-          <rect x="6" y="6" width="12" height="12" rx="1" fill="#fff"/>
-          <rect x="8" y="8" width="8" height="8" fill="#000"/>
-          <rect x="30" y="2" width="20" height="20" rx="2" fill="#000"/>
-          <rect x="34" y="6" width="12" height="12" rx="1" fill="#fff"/>
-          <rect x="36" y="8" width="8" height="8" fill="#000"/>
-          <rect x="2" y="30" width="20" height="20" rx="2" fill="#000"/>
-          <rect x="6" y="34" width="12" height="12" rx="1" fill="#fff"/>
-          <rect x="8" y="36" width="8" height="8" fill="#000"/>
-          <rect x="30" y="30" width="4" height="4" fill="#000"/>
-          <rect x="36" y="30" width="4" height="4" fill="#000"/>
-          <rect x="42" y="30" width="4" height="4" fill="#000"/>
-          <rect x="30" y="36" width="4" height="4" fill="#000"/>
-          <rect x="42" y="36" width="4" height="4" fill="#000"/>
-          <rect x="36" y="42" width="4" height="4" fill="#000"/>
-          <rect x="42" y="42" width="4" height="4" fill="#000"/>
-          <rect x="30" y="42" width="4" height="4" fill="#000"/>
-        </svg>
-      </div>
-      <div class="cta-text">
-        <p><strong>Scan atau klik link di bawah ini</strong><br>untuk langsung mengisi kuesionernya</p>
-        <a class="link-pill" href="https://docs.google.com/forms/d/e/1FAIpQLSeL6J32zwGk_b2T-L20-QevrrgYeWxUkXj5hi3x0_t7eYb_jA/viewform" target="_blank">
-          Isi Kuesioner Sekarang →
-        </a>
-      </div>
-    </div>
-
-    <div class="footer-row">
-      <div class="researcher-info">
-        <span>Tim Peneliti</span>
-        M. Arinal Haq · Dhani Syafreal · M. Yusril H.
-      </div>
-      <div class="badge-utm">UTM · Informatika · 2025</div>
-    </div>
+    <p class="note">
+      Data dijaga kerahasiaannya &amp; hanya untuk kepentingan akademik.<br>
+      Metode <a href="https://www.ueq-online.org" target="_blank">UEQ</a> · M. Arinal Haq, Dhani Syafreal, M. Yusril H.
+    </p>
 
   </div>
-</div>
+</main>
+
+<footer>
+  Universitas Trunojoyo Madura · Pendidikan Informatika · 2025
+</footer>
+
+</body>
+</html>
